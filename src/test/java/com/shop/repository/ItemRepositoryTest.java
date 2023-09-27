@@ -11,15 +11,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.TestPropertySource;
+import org.thymeleaf.util.StringUtils;
 
-import javax.persistence.Entity;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest // 통합 테스트 어노테이션. 모든 빈을 IoC 컨테이너에 등록
 @TestPropertySource(locations = "classpath:application-test.properties")  // 같은 설정이 있다면 app보다 test.properties에 우선순위 둠
@@ -166,14 +169,36 @@ class ItemRepositoryTest {
         }
     }
 
+    /*
+     * 상품 데이터 만드는 메소드. 1~5는 상품의 판매상태가 SELL(판매중)이고, 6~10은 SOLD_OUT으로 세팅
+     */
     @Test
     @DisplayName("상품 Querydsl 조회 테스트 2")
     public void queryDslTest2() {
         this.createItemList2();
 
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        BooleanBuilder booleanBuilder = new BooleanBuilder();   // BooleanBuilder : 쿼리에 들어갈 조건을 만들어주는 빌더. 메소드 체인 형식으로 사용 가능
         QItem item = QItem.item;
         
+        String itemDetail = "테스트 상품 상세 설명";
+        int price = 10003;
+        String itemSellStat = "SELL";
 
+        booleanBuilder.and(item.itemDetail.like("%" + itemDetail + "%"));   // 필요한 상품을 조회하는데 필요한 and 조건 추가
+        booleanBuilder.and(item.price.gt(price));
+
+        if (StringUtils.equals(itemSellStat, ItemSellStatus.SELL)) {    // 상태가 SELL일 때만 빌더에 판매 상태 조건을 동적으로 추가
+            booleanBuilder.and(item.itemSellStatus.eq(ItemSellStatus.SELL));
+        }
+
+        // PageRequest.of : 데이터를 페이징해 조회. page: 조회할 페이지 번호, size: 한 페이지 당 조회할 데이터 개수
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<Item> itemPagingResult = itemRepository.findAll(booleanBuilder, pageable);
+        System.out.println("total elements : " + itemPagingResult.getTotalElements());
+
+        List<Item> resultItemList = itemPagingResult.getContent();
+        for (Item resultItem : resultItemList) {
+            System.out.println(resultItem.toString());
+        }
     }
 }
