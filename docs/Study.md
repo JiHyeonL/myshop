@@ -46,3 +46,33 @@ ___
 
 #### 참고 링크
 [영속성 컨텍스트란?](https://velog.io/@neptunes032/JPA-%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8%EB%9E%80)
+
+___
+### ✏️ Thymeleaf
+#### 사용 배경  
+- 화면을 동적으로 만들려면 템플릿 엔진을 사용해야 한다.
+- 그래서 미리 정의된 템플릿을 만들고 동적으로 HTML 페이지를 만들어서 클라이언트에 전달한다.
+- 요청이 올 때마다 서버에서 새로운 HTML 페이지를 만들어 주기 때문에 서버 사이드 렌더링 방식이라고 한다.
+- `서버 사이드 템플릿 엔진` : Thymeleaf (스프링 권장👍), JSP, Groovy, Mustache 등
+
+#### Thymeleaf 장점
+`natural templates` : Thymeleaf 문법이 적용된 html 파일을 서버 사이드 렌더링을 하지 않고 브라우저에 띄워도 화면 출력 결과를 볼 수 있다.
+
+#### Thymeleaf 사용
+- 확장자명 : .html
+- 문법 : html 태기 안쪽에 속성으로 사용
+
+#### @RequestMapping(value = "/thymeleaf")
+- `@RequestMapping` : 클라이언트의 요청을 어떤 컨트롤러가 처리할지 매핑. 
+- 이 경우 타임리프 경로로 오는 요청을 ThymeleafExController(어노테이션 붙은 클래스)가 처리함
+  
+
+___
+### ✏️ Spring Boot Devtools
+#### 제공하는 대표적 기능
+- `Automatic Restart` : classpath에 있는 파일이 변경될 때마다 어플리케이션을 자동으로 재시작해줌. 생산성 향상 가능
+- `Live Reload` : 정적 자원(html, css, js) 수정 시 새로고침 없이 바로 적용 가능
+- `Property Defaults` : Thymeleaf는 기본적으로 성능을 향상시키기 위해 캐싱 기능을 사용한다. 그러나 개발 과정에서 캐싱 기능을 사용하면 수정한 소스가 제대로 반영되지 않을 수 있기 때문에 cache 기본값을 false로 설정 가능하다.
+> 위의 기능 추가하려면 pom.xml에 spring-boot-devtools 의존성을 추가 해야 한다.
+
+
