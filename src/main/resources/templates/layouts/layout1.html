@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"> <!-- layout 기능 사용위해 html 태그에 layout 네임스페이스 추가 -->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <th:block layout:fragment="script"/></th:block>
+    <th:block layout:fragment="css"/></th:block>
+
+</head>
+<body>
+
+    <div th:replace="~{fragments/header::header}"></div>   <!-- replace = 해당 속성이 선언된 html 태그를 다른 html 파일로 치환. fragments 폴더의 header.html 파일의 th:fragment=header 영역 가지고옴 -->
+    <div layout:fragment="content"></div>   <!-- layout에서 변경되는 영역을 fragment로 설정. 앞으로 쇼핑몰을 제작하면서 만들 페이지는 이 영역에 들어간다. -->
+    <div th:replace="~{fragments/footer::footer}"></div>
+
+</body>
+</html>
