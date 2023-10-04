@@ -76,6 +76,19 @@ ___
 > 위의 기능 추가하려면 pom.xml에 spring-boot-devtools 의존성을 추가 해야 한다.
 
 ___
-✏️ Thymeleaf 페이지 레이아웃 
+### ✏️ Thymeleaf 페이지 레이아웃 
 > 보통 웹사이트를 만들 때 header, footer, menu 등 공통적인 페이지 구성 요소들이 있는데, 이런 영역들을 각각의 페이지마다 같은 소스코드를 넣는다면 변경이 일어날 때마다 모든 페이지를 수정해야 한다. 그러나 Thymeleaf의 페이지 레이아웃 기능을 사용하면
 > 공통 요소 관리를 쉽게 할 수 있다.
+- ```<div th:fragment="">``` 으로 선언
+#### 참고 링크
+[Thymeleaf fragment 공통영역 처리](https://velog.io/@dhk22/Thymeleaf-Fragment-%EA%B3%B5%ED%86%B5%EC%98%81%EC%97%AD%EC%B2%98%EB%A6%AC)
+
+---
+### ✏️ 부트스트랩
+> 웹사이트를 쉽게 만들 수 있게 도와주는 HTML, CSS, JS 프레임워크
+#### CDN
+- 물리적으로 멀리 떨어져 있는 사용자에게 콘텐츠를 좀 더 빠르게 제공하기 위한 서비스.
+- 일종의 캐시 서버를 두어서 컨텐츠를 빠르게 받을 수 있도록 하는 서비스
+
+#### 참고링크
+[부트스트랩 공식 사이트](https://getbootstrap.com/)
