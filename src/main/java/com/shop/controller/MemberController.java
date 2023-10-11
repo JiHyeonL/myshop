@@ -29,7 +29,7 @@ public class MemberController {
         return "member/memberForm";
     }
 
-    @RequestMapping("/members")
+    @RequestMapping("/new")
     public String memberForm(MemberFormDto memberFormDto) {
 
         Member member = Member.createMember(memberFormDto, passwordEncoder);
