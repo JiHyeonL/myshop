@@ -28,14 +28,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("members/login")
-                .defaultSuccessUrl("/")
-                .usernameParameter("email")
-                .failureUrl("/members/login/error")
+                .loginPage("members/login") // 로그인 페이지 URL 설정
+                .defaultSuccessUrl("/") // 로그인 성공 시 이동할 URL 설정
+                .usernameParameter("email") // 로그인 시 사용할 파라미터 이름으로 email 지정
+                .failureUrl("/members/login/error") // 로그아웃 실패시 이동할 URL 설정
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-                .logoutSuccessUrl("/");
+                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout")) // 로그아웃 URL 설정
+                .logoutSuccessUrl("/"); // 로그아웃 성공 시 이동할 URL 설정
     }
 
     /*
@@ -47,6 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    /*
+     * AuthenticationManager를 통해 인증이 이루어짐
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(memberService)
